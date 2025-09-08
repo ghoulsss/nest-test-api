@@ -39,8 +39,18 @@ export class MoviesService {
     });
   }
 
-  update(id: number) {
-    return `This action updates a #${id} movie`;
+  async update(id: number, movieData: UpdateMovieDto) {
+    const updateMovie = await this.prisma.movie.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        // title: movieData['title'],
+        // year: movieData['year'],
+        ...movieData,
+      },
+    });
+    return updateMovie;
   }
 
   remove(id: number) {
