@@ -11,15 +11,16 @@ import {
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
-import { MovieResponseSchema } from 'src/zod';
+
 
 @Controller('movies')
 export class MoviesController {
   constructor(private readonly moviesService: MoviesService) {}
 
   @Get('search')
-  find(@Query('year') movieYear: string) {
-    return this.moviesService.find(Number(movieYear));
+  find(@Query('year') movieYear?: string, @Query('title') title?: string) {
+    const params = { movieYear: Number(movieYear), title };
+    return this.moviesService.find(params);
   }
 
   @Post()
