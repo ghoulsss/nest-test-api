@@ -8,10 +8,10 @@ import { MovieResponseSchema } from 'src/zod';
 export class MoviesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async find(movieName: string) {
+  async find(movieYear: number) {
     const movie = await this.prisma.movie.findMany({
       where: {
-        title: movieName,
+        year: movieYear,
       },
     });
     return movie;

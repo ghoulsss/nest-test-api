@@ -18,8 +18,8 @@ export class MoviesController {
   constructor(private readonly moviesService: MoviesService) {}
 
   @Get('search')
-  find(@Query('name') movieName: string) {
-    return this.moviesService.find(movieName);
+  find(@Query('year') movieYear: string) {
+    return this.moviesService.find(Number(movieYear));
   }
 
   @Post()
