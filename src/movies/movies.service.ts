@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
-// import { Movie } from './entities/movie.entity';
 import { PrismaService } from 'src/database/prisma.service';
+import { MovieResponseSchema } from 'src/zod';
 
 @Injectable()
 export class MoviesService {
@@ -18,7 +18,6 @@ export class MoviesService {
   }
 
   async create(movieData: CreateMovieDto) {
-    //createMovieDto: CreateMovieDto
     await this.prisma.movie.create({
       data: {
         ...movieData,
@@ -27,26 +26,25 @@ export class MoviesService {
   }
 
   async findAll() {
-    const movies = await this.prisma.movie.findMany();
+    const movies: MovieResponseSchema[] = await this.prisma.movie.findMany();
     return movies;
   }
 
-  findOne(id: number) {
-    return this.prisma.movie.findMany({
+  async findOne(id: number) {
+    const movie = await this.prisma.movie.findMany({
       where: {
         id: id,
       },
     });
+    return movie;
   }
 
   async update(id: number, movieData: UpdateMovieDto) {
     const updateMovie = await this.prisma.movie.update({
       where: {
-        id: Number(id),
+        id: id,
       },
       data: {
-        // title: movieData['title'],
-        // year: movieData['year'],
         ...movieData,
       },
     });

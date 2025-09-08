@@ -1,4 +1,4 @@
-export class CreateMovieDto {
-  readonly title: string;
-  readonly year: number;
-}
+import { createZodDto } from 'nestjs-zod';
+import { MovieRequestSchema } from 'src/zod';
+
+export class CreateMovieDto extends createZodDto(MovieRequestSchema) {}

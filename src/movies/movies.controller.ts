@@ -11,6 +11,7 @@ import {
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
+import { MovieResponseSchema } from 'src/zod';
 
 @Controller('movies')
 export class MoviesController {
@@ -23,7 +24,6 @@ export class MoviesController {
 
   @Post()
   create(@Body() movieData: CreateMovieDto) {
-    // ((@Body() createMovieDto: CreateMovieDto)
     return this.moviesService.create(movieData);
   }
 
@@ -33,13 +33,14 @@ export class MoviesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.moviesService.findOne(+id);
+  findOne(@Param('id') id: string) {
+    // const movie = this.moviesService.findOne(id);
+    return this.moviesService.findOne(Number(id));
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() updatedData: UpdateMovieDto) {
-    return this.moviesService.update(id, updatedData);
+  update(@Param('id') id: string, @Body() updatedData: UpdateMovieDto) {
+    return this.moviesService.update(Number(id), updatedData);
   }
 
   @Delete(':id')
