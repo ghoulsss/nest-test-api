@@ -51,9 +51,15 @@ export class MoviesController {
   @ApiOkResponse({
     description: 'Success list of books',
     type: CreateMovieDto,
+    isArray: true,
   })
-  findAll() {
-    return this.moviesService.findAll();
+  findAll(@Query('orderByAsc') orderByAsc?: string) {
+    console.log(typeof(orderByAsc), orderByAsc);
+    const isAsc = orderByAsc?.toLowerCase() === 'true' || orderByAsc === '1';
+    console.log(isAsc);
+
+    // const orderingAsc = orderByAsc ? 'asc' : 'desc';
+    return this.moviesService.findAll(Boolean(isAsc));
   }
 
   @Get(':id')

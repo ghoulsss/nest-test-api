@@ -27,8 +27,15 @@ export class MoviesService {
     });
   }
 
-  async findAll() {
-    const movies: MovieResponseSchema[] = await this.prisma.movie.findMany();
+  async findAll(isAsc: boolean) {
+    console.log(isAsc);
+    const orderingAsc = isAsc ? 'asc' : 'desc';
+    console.log(orderingAsc);
+    const movies = await this.prisma.movie.findMany({
+      orderBy: {
+        year: orderingAsc,
+      },
+    });
     return movies;
   }
 
