@@ -5,7 +5,7 @@ import { MovieRequestSchema } from 'src/zod';
 export class CreateMovieDto extends createZodDto(MovieRequestSchema) {
   @ApiProperty({
     description: 'Title of movie',
-    example: '',
+    example: 'Formula1',
   })
   title: string;
 

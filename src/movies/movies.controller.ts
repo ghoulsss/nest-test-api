@@ -17,6 +17,7 @@ import {
   ApiTags,
   ApiCreatedResponse,
   ApiOkResponse,
+  ApiBody,
 } from '@nestjs/swagger';
 
 @ApiTags('Movies')
@@ -36,6 +37,7 @@ export class MoviesController {
 
   @Post()
   @ApiOperation({ summary: 'Добавление фильма' })
+  @ApiBody({ type: [CreateMovieDto] })
   @ApiCreatedResponse({
     description: 'The movie has been successfully created.',
   })
