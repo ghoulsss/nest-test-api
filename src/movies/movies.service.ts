@@ -9,7 +9,7 @@ export class MoviesService {
   constructor(private readonly prisma: PrismaService) {}
 
   async find(params: { movieYear?: number; title?: string }) {
-    const { title, movieYear } = params;
+    const { movieYear, title } = params;
     const movie = await this.prisma.movie.findMany({
       where: {
         year: movieYear,
