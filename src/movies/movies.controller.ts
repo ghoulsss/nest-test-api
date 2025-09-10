@@ -54,12 +54,8 @@ export class MoviesController {
     isArray: true,
   })
   findAll(@Query('orderByAsc') orderByAsc?: string) {
-    console.log(typeof(orderByAsc), orderByAsc);
     const isAsc = orderByAsc?.toLowerCase() === 'true' || orderByAsc === '1';
-    console.log(isAsc);
-
-    // const orderingAsc = orderByAsc ? 'asc' : 'desc';
-    return this.moviesService.findAll(Boolean(isAsc));
+    return this.moviesService.findAll(isAsc);
   }
 
   @Get(':id')

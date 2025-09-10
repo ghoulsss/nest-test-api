@@ -28,9 +28,7 @@ export class MoviesService {
   }
 
   async findAll(isAsc: boolean) {
-    console.log(isAsc);
     const orderingAsc = isAsc ? 'asc' : 'desc';
-    console.log(orderingAsc);
     const movies = await this.prisma.movie.findMany({
       orderBy: {
         year: orderingAsc,
