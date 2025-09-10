@@ -3,6 +3,7 @@ import { createZodDto } from 'nestjs-zod';
 import { MovieRequestSchema } from 'src/zod';
 
 export class CreateMovieDto extends createZodDto(MovieRequestSchema) {
+  // Посмотреть напроекте как делают примеры example сразу в контроллере
   @ApiProperty({
     description: 'Title of movie',
     example: 'Formula1',
