@@ -45,8 +45,8 @@ export class MinioClientController {
     await this.minioService.uploadFile(prefix, file);
   }
 
-  @Delete(":id")
-  async remove(id: int): {
-    await this.minioService.deleteFile()
-  }
+  // @Delete(":id")
+  // async remove(id: int): {
+  //   await this.minioService.deleteFile()
+  // }
 }
