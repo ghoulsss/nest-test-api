@@ -12,3 +12,41 @@ Nestjs стремится отделить бизнес логику от лог
 
 генерирует призму в проекте npx prisma init --datasource-provider sqlite --output ../generated/prisma
 npx prisma migrate миграции
+
+Pipes имеют два типичных вариантов использования:
+
+Преобразование: преобразование входных данных в нужную форму (например, от строки в целое число)
+Валидация: оценить входные данные и, если действителен, просто пропустите их через неизменную; В противном случае, добавьте исключение
+
+В обоих случаях трубы работают над аргументами, обрабатываемыми обработчиком маршрута контроллера. Nest вмешивает трубу непосредственно перед вызовом метода, и труба получает аргументы, предназначенные для метода, и действует на них. Любая операция преобразования или валидации происходит в то время, после чего обработчик маршрута вызывает любые (потенциально) преобразованные аргументы.
+    ValidationPipe
+    ParseIntPipe
+    ParseFloatPipe
+    ParseBoolPipe
+    ParseArrayPipe
+    ParseUUIDPipe
+    ParseEnumPipe
+    DefaultValuePipe
+    ParseFilePipe
+    ParseDatePipe
+    
+@Get(':id')
+async findOne(@Param('id', ParseIntPipe) id: number) {
+  return this.catsService.findOne(id);
+}
+
+
+Загрузка файлов
+@Post('upload')
+@UseInterceptors(FileInterceptor('file'))
+uploadFile(@UploadedFile() file: Express.Multer.File) {
+  console.log(file);
+}
+The FileInterceptor() decorator is exported from the @nestjs/platform-express package. The @UploadedFile() decorator is exported from @nestjs/common. 
+
+Pipe - преобразует в параметрах запроса наши цифры из строки в инт и не только
+Interceptor - нужен для загрузки файлов, а формат multipart/form-data это передача файла составным запросом с помощью multipart/form-data
+
+MIddleeware - идет проверкой на все запросы абсолютно и является прослойкой между клиентом и сервером постоянно
+А Guard - это то же самое, можно накинуть на отдельные части.
+

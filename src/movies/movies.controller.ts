@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  ParseBoolPipe,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
@@ -18,6 +19,7 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiBody,
+  ApiQuery,
 } from '@nestjs/swagger';
 
 @ApiTags('Movies')
@@ -53,9 +55,22 @@ export class MoviesController {
     type: CreateMovieDto,
     isArray: true,
   })
-  findAll(@Query('orderByAsc') orderByAsc?: string) {
-    const isAsc = orderByAsc?.toLowerCase() === 'true' || orderByAsc === '1';
-    return this.moviesService.findAll(isAsc);
+  @ApiQuery({
+    name: 'orderByAsc',
+    required: false,
+    example: false,
+  })
+  findAll(
+    @Query(
+      'orderByAsc',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    orderByAsc: boolean,
+  ) {
+    // const isAsc = orderByAsc?.toLowerCase() === 'true' || orderByAsc === '1';
+    return this.moviesService.findAll(orderByAsc);
   }
 
   @Get(':id')
