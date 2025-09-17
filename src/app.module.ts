@@ -3,10 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MoviesModule } from './movies/movies.module';
 import { DatabaseModule } from './database/database.module';
-import { MinioModule } from './minio/minio.module';
+import { MinioClientModule } from './minio-client/minio-client.module';
 
 @Module({
-  imports: [MoviesModule, DatabaseModule, MinioModule],
+  imports: [MoviesModule, DatabaseModule, MinioClientModule],
   controllers: [AppController],
   providers: [AppService],
 })
